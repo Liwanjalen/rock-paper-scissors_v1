@@ -1,24 +1,52 @@
 // Create two variables to store choices, one for user and another for computer
 const choices = ["rock", "paper", "scissor"];
-const comp_input = Math.floor(Math.random() * 3);
-let user_input = 0;
-// Ask user input (rock, paper or scissors)
-user_input = parseInt(prompt("Pick: (1)Rock  (2)Paper  (3)Scissors")) - 1;
-//Print their choices
-console.log(`Computer: ${choices[comp_input]}\t User: ${choices[user_input]}`);
-// Compare the two variables to determine the winner & Print the winner in the console
-if (comp_input === 1 && user_input === 2) {
-  console.log("User won!");
-} else if (comp_input === 1 && user_input === 3) {
-  console.log("Computer won!");
-} else if (comp_input === 2 && user_input === 1) {
-  console.log("Computer won!");
-} else if (comp_input === 2 && user_input === 3) {
-  console.log("User won!");
-} else if (comp_input === 3 && user_input === 1) {
-  console.log("User won!");
-} else if (comp_input === 3 && user_input === 2) {
-  console.log("Computer won!");
-} else {
-  console.log("Draw!");
+
+function getComputerChoice() {
+  const comp_input = Math.floor(Math.random() * 3);
+  return comp_input;
 }
+
+// Ask user input (rock, paper or scissors)
+function getUserChoice() {
+  const user_input =
+    parseInt(prompt("Pick: (1)Rock  (2)Paper  (3)Scissors")) - 1;
+  return user_input;
+}
+
+// Compare the two variables to determine the winner
+function play(computerSelection, playerSelection) {
+  let winner = "";
+  console.log(computerSelection + " " + playerSelection);
+
+  console.log(
+    `Computer: ${choices[computerSelection]}\t User: ${choices[playerSelection]}`
+  );
+
+  if (computerSelection === 0 && playerSelection === 1) {
+    winner = "User won!";
+  } else if (computerSelection === 0 && playerSelection === 2) {
+    winner = "Computer won!";
+  } else if (computerSelection === 1 && playerSelection === 0) {
+    winner = "Computer won!";
+  } else if (computerSelection === 1 && playerSelection === 2) {
+    winner = "User won!";
+  } else if (computerSelection === 2 && playerSelection === 0) {
+    winner = "User won!";
+  } else if (computerSelection === 2 && playerSelection === 1) {
+    winner = "Computer won!";
+  } else {
+    winner = "Draw!";
+  }
+
+  return winner;
+}
+
+function game() {
+  for (let i = 0; i < 5; i++) {
+    const player = getUserChoice();
+    const computer = getComputerChoice();
+    console.log(play(computer, player));
+  }
+}
+
+game();
