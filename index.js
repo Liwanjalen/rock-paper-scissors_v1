@@ -9,6 +9,7 @@ function getComputerChoice() {
 // Compare the two variables to determine the winner
 function play(computerSelection, playerSelection) {
   let winner = "";
+
   console.log(computerSelection + " " + playerSelection);
 
   if (computerSelection === "rock" && playerSelection === "paper") {
@@ -27,26 +28,43 @@ function play(computerSelection, playerSelection) {
     winner = "Draw!";
   }
 
-  console.log(winner);
-
   return winner;
 }
 
-// const buttons = document.querySelectorAll(".playerChoice");
+let score_computer = 0;
+let score_player = 0;
 
-// buttons.forEach((button) => {
-//   const player = button.id;
-//   const computer = getComputerChoice();
-//   button.addEventListener("click", function () {
-//     alert("running");
-//   });
-//   console.log(button);
-// });
 function startGame(e) {
   const player = e.target.id;
   if (!player) return;
   const computer = getComputerChoice();
-  play(computer, player);
+  const winner = play(computer, player);
+  if (winner === "Draw!") {
+    null;
+  } else if (winner === "Computer won!") {
+    score_computer += 1;
+  } else if (winner === "User won!") {
+    score_player += 1;
+  }
+  score.textContent = `Computer: ${score_computer}\tUser: ${score_player}`;
+  display.appendChild(score);
+  if (score_computer === 5) {
+    finalWinner.textContent = "Computer won!";
+    display.appendChild(finalWinner);
+    score_computer = 0;
+    score_player = 0;
+  } else if (score_player === 5) {
+    finalWinner.textContent = "User won!";
+    display.appendChild(finalWinner);
+    score_computer = 0;
+    score_player = 0;
+  }
 }
+
+const display = document.querySelector("#scoreboard");
+
+const score = document.createElement("h3");
+
+const finalWinner = document.createElement("h2");
 
 window.addEventListener("click", startGame);
